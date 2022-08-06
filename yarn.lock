@@ -10379,7 +10379,7 @@ table@^5.0.2:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
-"tabler-react@link:./src/theme":
+"tabler-react@link:theme":
   version "0.0.0"
   uid ""
 

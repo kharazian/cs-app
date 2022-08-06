@@ -2,5 +2,5 @@
 	path = src/api
 	url = ../cs-api.git
 [submodule "src/tabler-react"]
-	path = src/theme
+	path = theme
 	url = ../cs-tabler-react.git
