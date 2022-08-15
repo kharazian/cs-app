@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Formik } from "formik";
 import { LoginPage as TablerLoginPage } from "tabler-react";
+import AuthService from "../services/auth.service";
 
 type Props = {||};
 
@@ -29,7 +30,20 @@ function LoginPage(props: Props): React.Node {
         values,
         { setSubmitting, setErrors /* setValues and other goodies */ }
       ) => {
-        alert("Done!");
+        AuthService.login(values.email, values.password).then(
+          () => {
+            window.location.assign("/");
+          },
+          (error) => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+            setErrors({email: resMessage});
+          }
+        );
       }}
       render={({
         values,
@@ -39,6 +53,7 @@ function LoginPage(props: Props): React.Node {
         handleBlur,
         handleSubmit,
         isSubmitting,
+        strings,
       }) => (
         <TablerLoginPage
           onSubmit={handleSubmit}
@@ -47,6 +62,14 @@ function LoginPage(props: Props): React.Node {
           values={values}
           errors={errors}
           touched={touched}
+          strings={{
+            title: "صفحه ورود",
+            buttonText: "ورود",
+            emailLabel: "آدرس الکترونیک",
+            emailPlaceholder: "وارد کردن آدرس الکترونیک",
+            passwordLabel: "رمز عیور",
+            passwordPlaceholder: "رمز",
+          }}
         />
       )}
     />

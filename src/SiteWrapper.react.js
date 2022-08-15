@@ -13,6 +13,7 @@ import {
 } from "tabler-react";
 
 import type { NotificationProps } from "tabler-react";
+import AuthService from "./services/auth.service";
 
 type Props = {|
   +children: React.Node,
@@ -128,18 +129,35 @@ const navBarItems: Array<navItem> = [
   },
 ];
 
+const currentUser = AuthService.getCurrentUser();
+const logout = () => {
+  AuthService.logout().then(
+    () => {
+      window.location.assign("/");
+    },
+    (error) => {
+      const resMessage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      alert(resMessage);
+    }
+  );
+}
 const accountDropdownProps = {
   avatarURL: "./demo/faces/female/25.jpg",
-  name: "Jane Pearson",
-  description: "Administrator",
+  name: currentUser.user.name,
+  description: currentUser.user.role,
   options: [
-    { icon: "user", value: "Profile" },
-    { icon: "settings", value: "Settings" },
-    { icon: "mail", value: "Inbox", badge: "6" },
-    { icon: "send", value: "Message" },
+    { icon: "user", value: "پروفایل" },
+    { icon: "settings", value: "تنظیمات" },
+    { icon: "mail", value: "کارتابل", badge: "6" },
+    { icon: "send", value: "پیامهای ارسالی" },
     { isDivider: true },
-    { icon: "help-circle", value: "Need help?" },
-    { icon: "log-out", value: "Sign out" },
+    { icon: "help-circle", value: "راهنما" },
+    { icon: "log-out", value: "خروج", onClick: logout},
   ],
 };
 
