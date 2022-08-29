@@ -150,7 +150,7 @@ const accountDropdownProps = {
   avatarURL: "./demo/faces/female/25.jpg",
   name: currentUser.user.name,
   description: currentUser.user.role,
-  options: [
+  options: currentUser.tokens ? [
     { icon: "user", value: "پروفایل" },
     { icon: "settings", value: "تنظیمات" },
     { icon: "mail", value: "کارتابل", badge: "6" },
@@ -158,6 +158,8 @@ const accountDropdownProps = {
     { isDivider: true },
     { icon: "help-circle", value: "راهنما" },
     { icon: "log-out", value: "خروج", onClick: logout},
+  ] : [    
+    { icon: "log-in", value: "ورود", to:'/login'},
   ],
 };
 
